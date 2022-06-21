@@ -19,7 +19,7 @@ namespace Machinego_Demo.Controllers
 
         [HttpGet]
         [Route("ListForView")]
-        public List<Machine> GetByAllMachineList()
+        public List<MachineListViewModel> GetByAllMachineList()
         {
            return machineService.GetByAllMachineList();
         } 

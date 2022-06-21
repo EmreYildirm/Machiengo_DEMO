@@ -12,5 +12,8 @@ namespace Machinego_Demo.DataAccesLayer.Repositories
         public TEntity SingleOrDefault(int id);
         public IQueryable<TEntity> List();
         public IQueryable<TEntity> List(Expression<Func<TEntity, bool>> expression);
+        public void BeginTransaction();
+        public void Rollback();
+        public void Commit();
     }
 }

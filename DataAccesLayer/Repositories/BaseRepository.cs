@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Machinego_Demo.DataAccesLayer.Repositories
         protected MachiengoDbContext context { get { return _context; } }
 
         private readonly DbSet<TEntity> _dbSet;
+
+        private IDbContextTransaction _transaction;
 
         protected BaseRepository(MachiengoDbContext dbContext)
         {
@@ -42,6 +45,19 @@ namespace Machinego_Demo.DataAccesLayer.Repositories
         public TEntity SingleOrDefault(int id)
         {
             return _dbSet.Find(id);
+        }
+        public void BeginTransaction()
+        {
+            _transaction = _context.Database.BeginTransaction();
+        }
+
+        public void Rollback()
+        {
+            _transaction.Rollback();
+        }
+        public void Commit()
+        {
+            _transaction.Commit();
         }
     }
 }
